@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/reverse-linked-list/
+// time complexity is O(n)
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode next;
+        ListNode cur;
+        ListNode previous = null;
+        cur = head;
+        while(cur!=null){
+            next = cur.next;
+            cur.next = previous;
+            previous = cur;
+            cur = next;
+        }
+        return previous;
+    }
+}

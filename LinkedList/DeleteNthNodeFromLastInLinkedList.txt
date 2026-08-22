@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+// time complexity is O(n), Extra space: O(1)
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode cur = head;
+        int size = 0;
+        // for size calculation
+        while(cur!=null){
+            size++;
+            cur = cur.next;
+        }
+
+        cur = head;
+        if(n==size){
+           return head.next; 
+        }
+        
+        for(int i=0;i<size-n-1;i++){
+            cur = cur.next;
+        }
+
+        cur.next = cur.next.next;
+        return head;    
+    }
+}
