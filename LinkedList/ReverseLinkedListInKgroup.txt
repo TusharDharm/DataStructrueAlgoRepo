@@ -1,0 +1,38 @@
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+time complexity-- O(n) and space complexity -- O(n/k)
+
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // if linked list is empty or k is 1, nothing to reverse
+        if(head == null || k<=1) return head;
+
+        // // Check whether at least k nodes are available
+        ListNode check = head;
+
+        for(int i=0;i<k;i++){
+            if(check == null){
+                return head;
+            }
+            check = check.next;
+        }
+
+        // Reverse exactly k nodes
+        ListNode prev = null;
+        ListNode cur = head;
+
+        for(int i=0;i<k;i++){
+            ListNode temp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = temp;
+        }
+
+        // 'head' is now the tail of the reversed group.
+        // Connect it to the next reversed group.
+        head.next = reverseKGroup(cur,k);
+
+        // 'prev' is the new head of this reversed group.
+        return prev;
+
+    }
+}
