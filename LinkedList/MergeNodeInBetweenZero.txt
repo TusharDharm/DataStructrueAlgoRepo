@@ -1,0 +1,47 @@
+https://leetcode.com/problems/merge-nodes-in-between-zeros/
+class Solution {
+
+    // TC -> O(n) and SC-> O(K)
+    // public ListNode mergeNodes(ListNode head) {
+    //   ListNode newHead = null;
+    //   ListNode current = null;
+    //   ListNode cur = head.next;
+    //   int sum = 0;
+    //   while(cur!=null){
+    //     if(cur.val == 0){
+    //         ListNode newNode = new ListNode(sum);
+    //         if(newHead == null){
+    //             newHead = newNode;
+    //             current = newNode;
+    //         }else{
+    //             current.next = newNode;
+    //             current = current.next;
+    //         }            
+    //         sum = 0;
+    //     }else{
+    //         sum += cur.val;
+    //     }
+    //     cur = cur.next;
+    //   }
+    //   return newHead;  
+    // }
+
+    // This is optimized with TC->O(n) and SC-> O(1)
+     public ListNode mergeNodes(ListNode head) {
+      ListNode current = head;
+      ListNode cur = head.next;
+      int sum = 0;
+      while(cur!=null){
+        if(cur.val == 0){
+            current = current.next;
+            current.val = sum;      
+            sum = 0;
+        }else{
+            sum += cur.val;
+        }
+        cur = cur.next;
+      }
+      current.next = null;
+      return head.next;  
+    }
+}
