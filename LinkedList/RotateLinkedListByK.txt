@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/rotate-list/
+TC-> O(n) and SC-> O(1)
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null) return head;
+
+        ListNode cur = head;
+        int length = 0;
+        while(cur!=null){
+            cur = cur.next;
+            length +=1;
+        }
+
+        int numberOfRotations = k%length;
+        if(numberOfRotations == 0) return head;
+        int splitPoint = length-numberOfRotations;
+
+        cur = head;
+        for(int i=0;i<splitPoint-1;i++){
+            cur = cur.next;
+        }
+
+        ListNode newHead = cur.next;
+        cur.next = null;
+        ListNode oldHead = head;
+
+        ListNode tailNode = newHead;
+        while(tailNode.next!=null){
+            tailNode = tailNode.next;
+        }
+
+        tailNode.next = oldHead;
+
+        return newHead;
+    }
+}
