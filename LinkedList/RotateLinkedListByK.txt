@@ -1,26 +1,27 @@
 //https://leetcode.com/problems/rotate-list/
 TC-> O(n) and SC-> O(1)
 class Solution {
-    public ListNode rotateRight(ListNode head, int k) {
+   public ListNode rotateRight(ListNode head, int k) {
         if(head == null) return head;
 
         ListNode cur = head;
         int length = 0;
+        // calculate length
         while(cur!=null){
             cur = cur.next;
             length +=1;
         }
 
-        int numberOfRotations = k%length;
-        if(numberOfRotations == 0) return head;
-        int splitPoint = length-numberOfRotations;
+        int numberOfRotations = k%length; // how many rotations we actually need.
+        if(numberOfRotations == 0) return head; // if needed rotations are 0 it means we dont need to rotate list
+        int splitPoint = length-numberOfRotations; // place we need to split linked list
 
         cur = head;
         for(int i=0;i<splitPoint-1;i++){
             cur = cur.next;
         }
 
-        ListNode newHead = cur.next;
+        ListNode newHead = cur.next; // split code and make next part to newHead
         cur.next = null;
         ListNode oldHead = head;
 
@@ -29,6 +30,7 @@ class Solution {
             tailNode = tailNode.next;
         }
 
+        // this is the connection 
         tailNode.next = oldHead;
 
         return newHead;
