@@ -1,0 +1,44 @@
+https://leetcode.com/problems/reverse-linked-list-ii/
+TC -> O(n) and SC -> O(1)
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+
+        // edge case
+        if(head == null || head.next == null || left == right) return head; 
+
+        ListNode cur = head;
+        ListNode prev = null;
+        ListNode next = null;
+        // before pointer is to connect reversed list prev
+        ListNode before = null;
+        //start is pointer where reversing start and to connect cur node after reverse.
+        ListNode start = null;
+        
+        // this is to traverse and find before. it is valid in case of left == 1
+        for(int i=1;i<left;i++){
+            before = cur;
+            cur = cur.next;
+        }
+        start = cur;
+
+        // reveresal logic from left position to right
+        while(left<=right){
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            left++;
+        }
+
+        // this is actual connection code after reversing list from left to right position
+        if(before!=null){
+            before.next = prev;
+        }else{ // this if for when left == 1
+            head = prev;
+        }
+        start.next = cur;
+
+        return head;
+
+    }
+}
