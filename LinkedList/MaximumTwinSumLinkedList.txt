@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
+// TC -> O(n)  and SC -> O(1)
+class Solution {
+    public int pairSum(ListNode head) {
+        ListNode cur = head;
+        int length = 0;
+        // find length of LinkedList
+        while(cur!=null){
+            cur = cur.next;
+            length +=1;
+        }
+
+        cur = head;
+        // find mid of linked list
+        int mid = length/2;
+        //traverse till mid of linked list
+        for(int i=0;i<mid;i++){
+            cur = cur.next;
+        }
+
+        // split second half of linked list
+        ListNode secondHalfHead = cur;
+        ListNode cur1 = secondHalfHead;
+        ListNode prev = null;
+        // reverse the second half of linked list
+        while(cur1!=null){
+            ListNode next = cur1.next;
+            cur1.next = prev;
+            prev = cur1;
+            cur1 = next;
+        }
+
+        cur = head;
+        cur1 = prev;
+
+        int maxSum = 0;
+        // traverse till second linked list pointer is null and find max and return it later.
+        while(cur1!=null){
+            maxSum = Math.max(maxSum,(cur.val+cur1.val));
+            cur = cur.next;
+            cur1 = cur1.next;
+        }
+
+        return maxSum;
+
+    }
+}
