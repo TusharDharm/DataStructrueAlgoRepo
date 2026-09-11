@@ -1,0 +1,51 @@
+//https://leetcode.com/problems/odd-even-linked-list/
+//TC -> O(n) and SC -> O(1)
+
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        //edge cases
+        if(head == null || head.next==null) return head;
+
+        ListNode cur = head;
+        int length = 0;
+        // find length of linked list
+        while(cur!=null){
+            cur = cur.next;
+            length++;
+        }    
+
+        cur = head;
+        ListNode oddHead = null;
+        ListNode evenHead = null;
+        ListNode evenCurrent = null;
+        ListNode oddCurrent = null;
+
+        // check if position is odd or even and keep two LinkedList one for odd and one for even
+        for(int i=1;i<=length;i++){
+            // for even 
+            if(i%2==0){
+                if(evenHead == null){
+                    evenHead = cur;
+                    evenCurrent = evenHead;
+                }else{
+                    evenCurrent.next = cur;
+                    evenCurrent = cur;
+                }
+            }else{ // for odd
+                if(oddHead == null){
+                    oddHead = cur;
+                    oddCurrent = oddHead;
+                }else{
+                    oddCurrent.next = cur;
+                    oddCurrent = cur;
+                }
+            }
+            cur = cur.next;
+        }
+        evenCurrent.next = null;
+        // connect odd to even linkedlist
+        oddCurrent.next = evenHead;
+        // return odd head.
+        return oddHead;
+    }
+}
